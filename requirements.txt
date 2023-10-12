@@ -5,4 +5,4 @@ requests
 datetime
 scipy
 matplotlib
-eod-historical-data
+eod
