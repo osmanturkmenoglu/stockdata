@@ -5,6 +5,7 @@ import datetime
 import calendar
 import scipy.stats as stats
 import matplotlib.pyplot as plt
+import streamlit as st
 
 
 import os
@@ -19,7 +20,13 @@ client = EodHistoricalData(api_key)
 
 
 
-symbol = input("Please enter the stock symbol and exchange code (e.g., AAPL.US): ")
+# Use Streamlit's text input widget to get the stock symbol from the user
+symbol = st.text_input("Please enter the stock symbol and exchange code (e.g., AAPL.US): ")
+
+# Check if the user has entered a symbol
+if symbol:
+    # Your code to fetch and display data for the entered symbol goes here
+    st.write(f"You entered: {symbol}")
 
 
 
