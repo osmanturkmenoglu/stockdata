@@ -24,6 +24,12 @@ client = EodHistoricalData(api)
 
 symbol = st.text_input("Please enter the stock symbol and exchange code (e.g., AAPL.US): ")
 
+if st.button('Get Data') and symbol:
+    try:
+        resp = client.get_fundamental_equity(symbol, filter_='Financials::Balance_Sheet::yearly')
+        # ... rest of your code to process and display the data
+    except Exception as e:
+        st.error(f"An error occurred: {str(e)}")
 
 
 resp = client.get_fundamental_equity(symbol, filter_='Financials::Balance_Sheet::yearly')
