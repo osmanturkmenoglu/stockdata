@@ -1,0 +1,9 @@
+streamlit
+numpy
+pandas
+requests
+datetime
+calendar
+scipy
+matplotlib
+eod-historical-data
