@@ -53,5 +53,5 @@ df[cols_to_convert] = df[cols_to_convert].applymap(lambda x: f'{float(x)/1e9:.2f
 # Streamlit App
 st.title('Apple Inc. Financial Analysis')
 st.write('This app displays the fundamental financial data of Apple Inc.')
-st.dataframe()
+st.write(df)
 st.line_chart(df_plot[['totalAssets', 'totalLiab', 'totalStockholderEquity']].astype(float))
