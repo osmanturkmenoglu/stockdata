@@ -22,8 +22,7 @@ client = EodHistoricalData(api)
 
 
 
-symbol = input("Please enter the stock symbol and exchange code (e.g., AAPL.US): ")
-
+symbol = st.text_input("Please enter the stock symbol and exchange code (e.g., AAPL.US): ")
 
 
 
@@ -44,17 +43,6 @@ df_plot = df.copy()
 # Convert columns with large numbers to a readable format (in billions) for display
 cols_to_convert = ['totalAssets', 'totalLiab', 'totalStockholderEquity', 'totalCurrentLiabilities', 'intangibleAssets', 'totalCurrentAssets', 'netInvestedCapital', 'otherCurrentAssets', 'otherCurrentLiab', 'deferredLongTermLiab', 'commonStock', 'capitalStock', 'retainedEarnings', 'otherLiab', 'goodWill', 'otherAssets', 'cash', 'cashAndEquivalents', 'currentDeferredRevenue', 'netDebt', 'shortTermDebt', 'shortLongTermDebt', 'shortLongTermDebtTotal', 'otherStockholderEquity', 'propertyPlantEquipment', 'longTermInvestments', 'netTangibleAssets', 'shortTermInvestments', 'netReceivables', 'longTermDebt', 'inventory', 'accountsPayable', 'accumulatedOtherComprehensiveIncome', 'commonStockTotalEquity', 'retainedEarningsTotalEquity', 'nonCurrrentAssetsOther', 'nonCurrentAssetsTotal', 'capitalLeaseObligations', 'longTermDebtTotal', 'nonCurrentLiabilitiesOther', 'nonCurrentLiabilitiesTotal', 'capitalSurpluse', 'liabilitiesAndStockholdersEquity', 'cashAndShortTermInvestments', 'propertyPlantAndEquipmentGross', 'propertyPlantAndEquipmentNet', 'netWorkingCapital', 'commonStockSharesOutstanding']
 df[cols_to_convert] = df[cols_to_convert].applymap(lambda x: f'{float(x)/1e9:.2f}B' if pd.notnull(x) else x)
-
-
-
-# Streamlit App
-st.title('Apple Inc. Financial Analysis')
-st.write('This app displays the fundamental financial data of Apple Inc.')
-st.dataframe(df.head())
-st.line_chart(df_plot[['totalAssets', 'totalLiab', 'totalStockholderEquity']].astype(float))
-
-df
-
 
 # Streamlit App
 st.title('Apple Inc. Financial Analysis')
