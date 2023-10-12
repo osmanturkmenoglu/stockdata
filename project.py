@@ -14,7 +14,7 @@ from eod import EodHistoricalData
 import streamlit as st
 
 # Accessing API key from secrets.toml
-api = st.secrets["my_secrets"]["api_key"]
+api = st.secrets["api_key"]
 
 
 # Create the client instance
