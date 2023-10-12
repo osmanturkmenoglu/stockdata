@@ -43,18 +43,8 @@ cols_to_convert = ['totalAssets', 'totalLiab', 'totalStockholderEquity', 'totalC
 df[cols_to_convert] = df[cols_to_convert].applymap(lambda x: f'{float(x)/1e9:.2f}B' if pd.notnull(x) else x)
 
 
-
 # Streamlit App
 st.title('Apple Inc. Financial Analysis')
 st.write('This app displays the fundamental financial data of Apple Inc.')
-st.dataframe(df.head())
-st.line_chart(df_plot[['totalAssets', 'totalLiab', 'totalStockholderEquity']].astype(float))
-
-df
-
-
-# Streamlit App
-st.title('Apple Inc. Financial Analysis')
-st.write('This app displays the fundamental financial data of Apple Inc.')
-st.dataframe(df.head())
+st.dataframe()
 st.line_chart(df_plot[['totalAssets', 'totalLiab', 'totalStockholderEquity']].astype(float))
