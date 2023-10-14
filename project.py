@@ -20,19 +20,18 @@ api = st.secrets["my_secrets"]["api_key"]
 # Create the client instance
 client = EodHistoricalData(api)
 
-
+default_symbol = "AAPL.US"
+default_frequency = "yearly"
 
 symbol = st.text_input("Please enter the stock symbol and exchange code (e.g., AAPL.US): ")
+frequency = st.selectbox("Choose data frequency:", ["yearly", "quarterly"])
 
-if st.button('Get Data') and symbol:
+
+if st.button("Get Data") and symbol:
     try:
-        resp = client.get_fundamental_equity(symbol, filter_='Financials::Balance_Sheet::yearly')
-        # ... rest of your code to process and display the data
-    except Exception as e:
-        st.error(f"An error occurred: {str(e)}")
+        # Fetching the data based on user input and selected frequency
+        resp = client.get_fundamental_equity(symbol, filter_=f'Financials::Balance_Sheet::{frequency}')
 
-
-resp = client.get_fundamental_equity(symbol, filter_='Financials::Balance_Sheet::yearly')
 
 # Convert the dictionary to a Pandas DataFrame
 df = pd.DataFrame.from_dict(resp, orient='index')
@@ -49,6 +48,9 @@ df_plot = df.copy()
 # Convert columns with large numbers to a readable format (in billions) for display
 cols_to_convert = ['totalAssets', 'totalLiab', 'totalStockholderEquity', 'totalCurrentLiabilities', 'intangibleAssets', 'totalCurrentAssets', 'netInvestedCapital', 'otherCurrentAssets', 'otherCurrentLiab', 'deferredLongTermLiab', 'commonStock', 'capitalStock', 'retainedEarnings', 'otherLiab', 'goodWill', 'otherAssets', 'cash', 'cashAndEquivalents', 'currentDeferredRevenue', 'netDebt', 'shortTermDebt', 'shortLongTermDebt', 'shortLongTermDebtTotal', 'otherStockholderEquity', 'propertyPlantEquipment', 'longTermInvestments', 'netTangibleAssets', 'shortTermInvestments', 'netReceivables', 'longTermDebt', 'inventory', 'accountsPayable', 'accumulatedOtherComprehensiveIncome', 'commonStockTotalEquity', 'retainedEarningsTotalEquity', 'nonCurrrentAssetsOther', 'nonCurrentAssetsTotal', 'capitalLeaseObligations', 'longTermDebtTotal', 'nonCurrentLiabilitiesOther', 'nonCurrentLiabilitiesTotal', 'capitalSurpluse', 'liabilitiesAndStockholdersEquity', 'cashAndShortTermInvestments', 'propertyPlantAndEquipmentGross', 'propertyPlantAndEquipmentNet', 'netWorkingCapital', 'commonStockSharesOutstanding']
 df[cols_to_convert] = df[cols_to_convert].applymap(lambda x: f'{float(x)/1e9:.2f}B' if pd.notnull(x) else x)
+
+     except Exception as e:
+        st.error(f"An error occurred: {str(e)}")
 
 # Streamlit App
 st.title('Apple Inc. Financial Analysis')
