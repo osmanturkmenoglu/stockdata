@@ -62,21 +62,6 @@ if st.button("Get Data") and symbol:
         with col2:
             st.header("Income Statement")
             st.dataframe(df_is)
-             # Selecting DataFrame for plotting
-        df_to_plot = st.selectbox("Choose a Financial Statement for plotting:", ["Balance Sheet", "Income Statement"])
-        if df_to_plot == "Balance Sheet":
-            df_plot = df_bs.copy()
-        else:
-            df_plot = df_is.copy()
-        
-        # Converting columns to float for plotting
-        df_plot = df_plot.apply(pd.to_numeric, errors='coerce')
-        
-        # Selecting column for plotting
-        column_to_plot = st.selectbox("Choose a column to plot:", df_plot.columns)
-        
-        # Plotting the selected data
-        st.line_chart(df_plot[column_to_plot])
         
     except Exception as e:
         st.error(f"An error occurred: {str(e)}")
