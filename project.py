@@ -56,9 +56,3 @@ if st.button("Get Data") and symbol:
         
     except Exception as e:
         st.error(f"An error occurred: {str(e)}")
-
-# Streamlit App
-st.title('Apple Inc. Financial Analysis')
-st.write('This app displays the fundamental financial data of Apple Inc.')
-st.write(df)
-st.line_chart(df_plot[['totalAssets', 'totalLiab', 'totalStockholderEquity']].astype(float))
