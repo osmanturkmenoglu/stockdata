@@ -54,12 +54,14 @@ if st.button("Get Data") and symbol:
         st.title('Financial Analysis')
         st.write('This app displays the fundamental financial data.')
         
-        # Creating tabs for different DataFrames
-        tab = st.selectbox("Choose a Financial Statement", ["Balance Sheet", "Income Statement"])
-        if tab == "Balance Sheet":
-            st.write(df_bs)
-        elif tab == "Income Statement":
-            st.write(df_is)
+        # Displaying DataFrames side by side
+        col1, col2 = st.columns(2)
+        with col1:
+            st.header("Balance Sheet")
+            st.dataframe(df_bs)
+        with col2:
+            st.header("Income Statement")
+            st.dataframe(df_is)
         
     except Exception as e:
         st.error(f"An error occurred: {str(e)}")
