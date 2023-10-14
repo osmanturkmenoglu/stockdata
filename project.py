@@ -29,58 +29,37 @@ frequency = st.selectbox("Choose data frequency:", ["yearly", "quarterly"])
 
 if st.button("Get Data") and symbol:
     try:
-        # Fetching the data based on user input and selected frequency
-        resp = client.get_fundamental_equity(symbol, filter_=f'Financials::Balance_Sheet::{frequency}')
+        # Fetching Balance Sheet data
+        resp_bs = client.get_fundamental_equity(symbol, filter_=f'Financials::Balance_Sheet::{frequency}')
+        df_bs = pd.DataFrame.from_dict(resp_bs, orient='index')
+        df_bs = df_bs.drop(columns=['date'])
+        df_bs.index.name = 'date'
         
-        # Convert the dictionary to a Pandas DataFrame
-        df1 = pd.DataFrame.from_dict(resp, orient='index')
-
-        # Drop the 'date' column as it's the same as the index
-        df1 = df.drop(columns=['date'])
-
-        # Rename the index to 'date'
-        df1.index.name = 'date'
-
-        # Create a copy of the DataFrame for plotting
-        df1_plot = df1.copy()
-
-        # Convert columns with large numbers to a readable format (in billions) for display
-        cols_to_convert = ['totalAssets', 'totalLiab', 'totalStockholderEquity', 'totalCurrentLiabilities', 'intangibleAssets', 'totalCurrentAssets', 'netInvestedCapital', 'otherCurrentAssets', 'otherCurrentLiab', 'deferredLongTermLiab', 'commonStock', 'capitalStock', 'retainedEarnings', 'otherLiab', 'goodWill', 'otherAssets', 'cash', 'cashAndEquivalents', 'currentDeferredRevenue', 'netDebt', 'shortTermDebt', 'shortLongTermDebt', 'shortLongTermDebtTotal', 'otherStockholderEquity', 'propertyPlantEquipment', 'longTermInvestments', 'netTangibleAssets', 'shortTermInvestments', 'netReceivables', 'longTermDebt', 'inventory', 'accountsPayable', 'accumulatedOtherComprehensiveIncome', 'commonStockTotalEquity', 'retainedEarningsTotalEquity', 'nonCurrrentAssetsOther', 'nonCurrentAssetsTotal', 'capitalLeaseObligations', 'longTermDebtTotal', 'nonCurrentLiabilitiesOther', 'nonCurrentLiabilitiesTotal', 'capitalSurpluse', 'liabilitiesAndStockholdersEquity', 'cashAndShortTermInvestments', 'propertyPlantAndEquipmentGross', 'propertyPlantAndEquipmentNet', 'netWorkingCapital', 'commonStockSharesOutstanding']
-        df1[cols_to_convert] = df1[cols_to_convert].applymap(lambda x: f'{float(x)/1e9:.2f}B' if pd.notnull(x) else x)
-
-        resp = client.get_fundamental_equity(symbol, filter_=f'Financials::Income_Statement::{frequency}')
-
-        # Convert the dictionary to a Pandas DataFrame
-        df2 = pd.DataFrame.from_dict(resp, orient='index')
-
-        # Drop the 'date' column as it's the same as the index
-        df2 = df.drop(columns=['date'])
-
-        # Rename the index to 'date'
-        df2.index.name = 'date'
-
-        # Create a copy of the DataFrame for plotting
-        df2_plot = df2.copy()
-
-        # Convert columns with large numbers to a readable format (in billions) for display
-        # Identify columns that contain numerical values
-        cols_to_convert = [
-            'researchDevelopment', 'effectOfAccountingCharges', 'incomeBeforeTax', 'minorityInterest',
-            'netIncome', 'sellingGeneralAdministrative', 'grossProfit', 'reconciledDepreciation', 'ebit', 'ebitda',
-            'depreciationAndAmortization', 'nonOperatingIncomeNetOther', 'operatingIncome',
-            'otherOperatingExpenses', 'interestExpense', 'taxProvision', 'interestIncome',
-            'netInterestIncome', 'extraordinaryItems', 'nonRecurring', 'otherItems',
-            'incomeTaxExpense', 'totalRevenue', 'totalOperatingExpenses', 'costOfRevenue',
-            'totalOtherIncomeExpenseNet', 'discontinuedOperations', 'netIncomeFromContinuingOps',
-            'netIncomeApplicableToCommonShares', 'preferredStockAndOtherAdjustments'
-        ]
-        df2[cols_to_convert] = df[cols_to_convert].applymap(lambda x: f'{float(x)/1e9:.2f}B' if pd.notnull(x) else x)
+        # Specify columns to convert for Balance Sheet
+        cols_to_convert_bs = ['totalAssets', 'totalLiab', 'totalStockholderEquity', 'totalCurrentLiabilities', 'intangibleAssets', 'totalCurrentAssets', 'netInvestedCapital', 'otherCurrentAssets', 'otherCurrentLiab', 'deferredLongTermLiab', 'commonStock', 'capitalStock', 'retainedEarnings', 'otherLiab', 'goodWill', 'otherAssets', 'cash', 'cashAndEquivalents', 'currentDeferredRevenue', 'netDebt', 'shortTermDebt', 'shortLongTermDebt', 'shortLongTermDebtTotal', 'otherStockholderEquity', 'propertyPlantEquipment', 'longTermInvestments', 'netTangibleAssets', 'shortTermInvestments', 'netReceivables', 'longTermDebt', 'inventory', 'accountsPayable', 'accumulatedOtherComprehensiveIncome', 'commonStockTotalEquity', 'retainedEarningsTotalEquity', 'nonCurrrentAssetsOther', 'nonCurrentAssetsTotal', 'capitalLeaseObligations', 'longTermDebtTotal', 'nonCurrentLiabilitiesOther', 'nonCurrentLiabilitiesTotal', 'capitalSurpluse', 'liabilitiesAndStockholdersEquity', 'cashAndShortTermInvestments', 'propertyPlantAndEquipmentGross', 'propertyPlantAndEquipmentNet', 'netWorkingCapital', 'commonStockSharesOutstanding']
+        df_bs[cols_to_convert_bs] = df_bs[cols_to_convert_bs].applymap(lambda x: f'{float(x)/1e9:.2f}B' if pd.notnull(x) else x)
+        
+        # Fetching Income Statement data
+        resp_is = client.get_fundamental_equity(symbol, filter_=f'Financials::Income_Statement::{frequency}')
+        df_is = pd.DataFrame.from_dict(resp_is, orient='index')
+        df_is = df_is.drop(columns=['date'])
+        df_is.index.name = 'date'
+        
+        # Specify columns to convert for Income Statement
+        cols_to_convert_is = ['researchDevelopment', 'effectOfAccountingCharges', 'incomeBeforeTax', 'minorityInterest', 'netIncome', 'sellingGeneralAdministrative', 'grossProfit', 'reconciledDepreciation', 'ebit', 'ebitda', 'depreciationAndAmortization', 'nonOperatingIncomeNetOther', 'operatingIncome', 'otherOperatingExpenses', 'interestExpense', 'taxProvision', 'interestIncome', 'netInterestIncome', 'extraordinaryItems', 'nonRecurring', 'otherItems', 'incomeTaxExpense', 'totalRevenue', 'totalOperatingExpenses', 'costOfRevenue', 'totalOtherIncomeExpenseNet', 'discontinuedOperations', 'netIncomeFromContinuingOps', 'netIncomeApplicableToCommonShares', 'preferredStockAndOtherAdjustments']
+        df_is[cols_to_convert_is] = df_is[cols_to_convert_is].applymap(lambda x: f'{float(x)/1e9:.2f}B' if pd.notnull(x) else x)
         
         # Streamlit App
         st.title('Financial Analysis')
         st.write('This app displays the fundamental financial data.')
-        st.write(df)
-        st.line_chart(df_plot[['totalAssets', 'totalLiab', 'totalStockholderEquity']].astype(float))
+        
+        # Creating tabs for different DataFrames
+        tab = st.selectbox("Choose a Financial Statement", ["Balance Sheet", "Income Statement"])
+        if tab == "Balance Sheet":
+            st.write(df_bs)
+        elif tab == "Income Statement":
+            st.write(df_is)
         
     except Exception as e:
         st.error(f"An error occurred: {str(e)}")
+
