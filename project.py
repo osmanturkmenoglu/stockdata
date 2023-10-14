@@ -33,34 +33,34 @@ if st.button("Get Data") and symbol:
         resp = client.get_fundamental_equity(symbol, filter_=f'Financials::Balance_Sheet::{frequency}')
         
         # Convert the dictionary to a Pandas DataFrame
-        df = pd.DataFrame.from_dict(resp, orient='index')
+        df1 = pd.DataFrame.from_dict(resp, orient='index')
 
         # Drop the 'date' column as it's the same as the index
-        df = df.drop(columns=['date'])
+        df1 = df.drop(columns=['date'])
 
         # Rename the index to 'date'
-        df.index.name = 'date'
+        df1.index.name = 'date'
 
         # Create a copy of the DataFrame for plotting
-        df_plot = df.copy()
+        df1_plot = df1.copy()
 
         # Convert columns with large numbers to a readable format (in billions) for display
         cols_to_convert = ['totalAssets', 'totalLiab', 'totalStockholderEquity', 'totalCurrentLiabilities', 'intangibleAssets', 'totalCurrentAssets', 'netInvestedCapital', 'otherCurrentAssets', 'otherCurrentLiab', 'deferredLongTermLiab', 'commonStock', 'capitalStock', 'retainedEarnings', 'otherLiab', 'goodWill', 'otherAssets', 'cash', 'cashAndEquivalents', 'currentDeferredRevenue', 'netDebt', 'shortTermDebt', 'shortLongTermDebt', 'shortLongTermDebtTotal', 'otherStockholderEquity', 'propertyPlantEquipment', 'longTermInvestments', 'netTangibleAssets', 'shortTermInvestments', 'netReceivables', 'longTermDebt', 'inventory', 'accountsPayable', 'accumulatedOtherComprehensiveIncome', 'commonStockTotalEquity', 'retainedEarningsTotalEquity', 'nonCurrrentAssetsOther', 'nonCurrentAssetsTotal', 'capitalLeaseObligations', 'longTermDebtTotal', 'nonCurrentLiabilitiesOther', 'nonCurrentLiabilitiesTotal', 'capitalSurpluse', 'liabilitiesAndStockholdersEquity', 'cashAndShortTermInvestments', 'propertyPlantAndEquipmentGross', 'propertyPlantAndEquipmentNet', 'netWorkingCapital', 'commonStockSharesOutstanding']
-        df[cols_to_convert] = df[cols_to_convert].applymap(lambda x: f'{float(x)/1e9:.2f}B' if pd.notnull(x) else x)
+        df1[cols_to_convert] = df1[cols_to_convert].applymap(lambda x: f'{float(x)/1e9:.2f}B' if pd.notnull(x) else x)
 
         resp = client.get_fundamental_equity(symbol, filter_=f'Financials::Income_Statement::{frequency}')
 
         # Convert the dictionary to a Pandas DataFrame
-        df = pd.DataFrame.from_dict(resp, orient='index')
+        df2 = pd.DataFrame.from_dict(resp, orient='index')
 
         # Drop the 'date' column as it's the same as the index
-        df = df.drop(columns=['date'])
+        df2 = df.drop(columns=['date'])
 
         # Rename the index to 'date'
-        df.index.name = 'date'
+        df2.index.name = 'date'
 
         # Create a copy of the DataFrame for plotting
-        df_plot = df.copy()
+        df2_plot = df2.copy()
 
         # Convert columns with large numbers to a readable format (in billions) for display
         # Identify columns that contain numerical values
@@ -74,7 +74,7 @@ if st.button("Get Data") and symbol:
             'totalOtherIncomeExpenseNet', 'discontinuedOperations', 'netIncomeFromContinuingOps',
             'netIncomeApplicableToCommonShares', 'preferredStockAndOtherAdjustments'
         ]
-        df[cols_to_convert] = df[cols_to_convert].applymap(lambda x: f'{float(x)/1e9:.2f}B' if pd.notnull(x) else x)
+        df2[cols_to_convert] = df[cols_to_convert].applymap(lambda x: f'{float(x)/1e9:.2f}B' if pd.notnull(x) else x)
         
         # Streamlit App
         st.title('Financial Analysis')
