@@ -6,3 +6,4 @@ datetime
 scipy
 matplotlib
 eod
+streamlit-aggrid
