@@ -33,23 +33,23 @@ if st.button("Get Data") and symbol:
         resp = client.get_fundamental_equity(symbol, filter_=f'Financials::Balance_Sheet::{frequency}')
 
 
-# Convert the dictionary to a Pandas DataFrame
-df = pd.DataFrame.from_dict(resp, orient='index')
+    # Convert the dictionary to a Pandas DataFrame
+    df = pd.DataFrame.from_dict(resp, orient='index')
 
-# Drop the 'date' column as it's the same as the index
-df = df.drop(columns=['date'])
+    # Drop the 'date' column as it's the same as the index
+    df = df.drop(columns=['date'])
 
-# Rename the index to 'date'
-df.index.name = 'date'
+    # Rename the index to 'date'
+    df.index.name = 'date'
 
-# Create a copy of the DataFrame for plotting
-df_plot = df.copy()
+    # Create a copy of the DataFrame for plotting
+    df_plot = df.copy()
 
-# Convert columns with large numbers to a readable format (in billions) for display
-cols_to_convert = ['totalAssets', 'totalLiab', 'totalStockholderEquity', 'totalCurrentLiabilities', 'intangibleAssets', 'totalCurrentAssets', 'netInvestedCapital', 'otherCurrentAssets', 'otherCurrentLiab', 'deferredLongTermLiab', 'commonStock', 'capitalStock', 'retainedEarnings', 'otherLiab', 'goodWill', 'otherAssets', 'cash', 'cashAndEquivalents', 'currentDeferredRevenue', 'netDebt', 'shortTermDebt', 'shortLongTermDebt', 'shortLongTermDebtTotal', 'otherStockholderEquity', 'propertyPlantEquipment', 'longTermInvestments', 'netTangibleAssets', 'shortTermInvestments', 'netReceivables', 'longTermDebt', 'inventory', 'accountsPayable', 'accumulatedOtherComprehensiveIncome', 'commonStockTotalEquity', 'retainedEarningsTotalEquity', 'nonCurrrentAssetsOther', 'nonCurrentAssetsTotal', 'capitalLeaseObligations', 'longTermDebtTotal', 'nonCurrentLiabilitiesOther', 'nonCurrentLiabilitiesTotal', 'capitalSurpluse', 'liabilitiesAndStockholdersEquity', 'cashAndShortTermInvestments', 'propertyPlantAndEquipmentGross', 'propertyPlantAndEquipmentNet', 'netWorkingCapital', 'commonStockSharesOutstanding']
-df[cols_to_convert] = df[cols_to_convert].applymap(lambda x: f'{float(x)/1e9:.2f}B' if pd.notnull(x) else x)
+    # Convert columns with large numbers to a readable format (in billions) for display
+    cols_to_convert = ['totalAssets', 'totalLiab', 'totalStockholderEquity', 'totalCurrentLiabilities', 'intangibleAssets', 'totalCurrentAssets', 'netInvestedCapital', 'otherCurrentAssets', 'otherCurrentLiab', 'deferredLongTermLiab', 'commonStock', 'capitalStock', 'retainedEarnings', 'otherLiab', 'goodWill', 'otherAssets', 'cash', 'cashAndEquivalents', 'currentDeferredRevenue', 'netDebt', 'shortTermDebt', 'shortLongTermDebt', 'shortLongTermDebtTotal', 'otherStockholderEquity', 'propertyPlantEquipment', 'longTermInvestments', 'netTangibleAssets', 'shortTermInvestments', 'netReceivables', 'longTermDebt', 'inventory', 'accountsPayable', 'accumulatedOtherComprehensiveIncome', 'commonStockTotalEquity', 'retainedEarningsTotalEquity', 'nonCurrrentAssetsOther', 'nonCurrentAssetsTotal', 'capitalLeaseObligations', 'longTermDebtTotal', 'nonCurrentLiabilitiesOther', 'nonCurrentLiabilitiesTotal', 'capitalSurpluse', 'liabilitiesAndStockholdersEquity', 'cashAndShortTermInvestments', 'propertyPlantAndEquipmentGross', 'propertyPlantAndEquipmentNet', 'netWorkingCapital', 'commonStockSharesOutstanding']
+    df[cols_to_convert] = df[cols_to_convert].applymap(lambda x: f'{float(x)/1e9:.2f}B' if pd.notnull(x) else x)
 
-     except Exception as e:
+    except Exception as e:
         st.error(f"An error occurred: {str(e)}")
 
 # Streamlit App
