@@ -82,4 +82,15 @@ def page3():
 
 # Dictionary of pages
 pages = {
-    'Financial Analysis'}
+    'Financial Analysis': page1,
+    'Page 2': page2,
+    'Page 3': page3,
+}
+
+# Sidebar for navigation
+st.sidebar.title('Navigation')
+selection = st.sidebar.radio("Go to", list(pages.keys()))
+
+# Render the selected page
+if selection in pages:
+    pages[selection]()
