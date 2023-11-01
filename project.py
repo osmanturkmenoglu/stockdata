@@ -22,14 +22,6 @@ api = st.secrets["my_secrets"]["api_key"]
 # Create the client instance
 client = EodHistoricalData(api)
 
-
-def page1():
-    st.title('Page 1')
-    st.write('This is the content of page 1.')
-    # Add more Streamlit widgets for page 1 content
-
-# Assuming 'client' is defined and authenticated elsewhere
-
 def page1():
     st.title('Financial Analysis')
     st.write('This app displays the fundamental financial data.')
