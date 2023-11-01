@@ -71,9 +71,9 @@ def page1():
 
 # Define other pages as functions
 def page2():
-    st.title('Page 2')
-    st.write('This is the content of page 2.')
-    # Add more Streamlit widgets for page 2 content
+    st.title('Historical Multiples')
+    st.write('This app displays the historical multiples data.')
+    
 
 def page3():
     st.title('Page 3')
@@ -83,7 +83,7 @@ def page3():
 # Dictionary of pages
 pages = {
     'Financial Analysis': page1,
-    'Page 2': page2,
+    'Historical Multiples': page2,
     'Page 3': page3,
 }
 
