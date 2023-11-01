@@ -92,3 +92,4 @@ def page3():
 pages = {
     'Financial Analysis
 
+}
