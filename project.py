@@ -90,6 +90,4 @@ def page3():
 
 # Dictionary of pages
 pages = {
-    'Financial Analysis
-
-}
+    'Financial Analysis}
