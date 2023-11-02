@@ -445,8 +445,8 @@ def page2():
             # Display the first few rows of the reversed DataFrame
             ratios_df = ratios_df.round(2)
             st.dataframe(ratios_df)
-
-            
+        except Exception as e:
+            st.error(f"An error occurred: {str(e)}")
 
 
 
