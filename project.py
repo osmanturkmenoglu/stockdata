@@ -448,6 +448,11 @@ def page2():
 
             
 
+
+
+
+
+
 # Dictionary of pages
 pages = {
     'Financial Analysis': page1,
