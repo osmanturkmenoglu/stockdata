@@ -447,18 +447,11 @@ def page2():
             st.dataframe(ratios_df)
 
             
-    
-
-def page3():
-    st.title('Page 3')
-    st.write('This is the content of page 3.')
-    # Add more Streamlit widgets for page 3 content
 
 # Dictionary of pages
 pages = {
     'Financial Analysis': page1,
     'Historical Multiples': page2,
-    'Page 3': page3,
 }
 
 # Sidebar for navigation
