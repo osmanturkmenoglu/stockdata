@@ -20,7 +20,7 @@ api = st.secrets["my_secrets"]["api_key"]
 
 
 # Create the client instance
-client = EodHistoricalData(api)
+client = EodHistoricalData(API)
 
 def page1():
     st.title('Financial Analysis')
