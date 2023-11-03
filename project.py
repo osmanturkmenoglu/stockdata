@@ -57,36 +57,37 @@ def page1():
             cols_to_convert_is = ['researchDevelopment', 'effectOfAccountingCharges', 'incomeBeforeTax', 'minorityInterest', 'netIncome', 'sellingGeneralAdministrative', 'grossProfit', 'reconciledDepreciation', 'ebit', 'ebitda', 'depreciationAndAmortization', 'nonOperatingIncomeNetOther', 'operatingIncome', 'otherOperatingExpenses', 'interestExpense', 'taxProvision', 'interestIncome', 'netInterestIncome', 'extraordinaryItems', 'nonRecurring', 'otherItems', 'incomeTaxExpense', 'totalRevenue', 'totalOperatingExpenses', 'costOfRevenue', 'totalOtherIncomeExpenseNet', 'discontinuedOperations', 'netIncomeFromContinuingOps', 'netIncomeApplicableToCommonShares', 'preferredStockAndOtherAdjustments']
             df_is[cols_to_convert_is] = df_is[cols_to_convert_is].applymap(lambda x: f'{float(x)/1e9:.2f}B' if pd.notnull(x) else x)
             
-            try:
-                # Displaying DataFrames side by side
-                col1, col2 = st.columns(2)
-            
-                # For the Balance Sheet DataFrame
-                with col1:
-                    st.header("Balance Sheet")
-                    # Multiselect widget to select columns for Balance Sheet
-                    selected_columns_bs = st.multiselect('Select columns for Balance Sheet:', df_bs.columns, key='1')
-                    # Filter the DataFrame based on selected columns
-                    if selected_columns_bs:
-                        filtered_df_bs = df_bs[selected_columns_bs]
-                    else:
-                        filtered_df_bs = df_bs  # If no columns are selected, display all
-                    st.dataframe(filtered_df_bs)
-            
-                # For the Income Statement DataFrame
-                with col2:
-                    st.header("Income Statement")
-                    # Multiselect widget to select columns for Income Statement
-                    selected_columns_is = st.multiselect('Select columns for Income Statement:', df_is.columns, key='2')
-                    # Filter the DataFrame based on selected columns
-                    if selected_columns_is:
-                        filtered_df_is = df_is[selected_columns_is]
-                    else:
-                        filtered_df_is = df_is  # If no columns are selected, display all
-                    st.dataframe(filtered_df_is)
-            
-            except Exception as e:
-                st.error(f"An error occurred: {str(e)}")
+			try:
+			    # Displaying DataFrames side by side
+			    col1, col2 = st.columns(2)
+			
+			    # For the Balance Sheet DataFrame
+			    with col1:
+			        st.header("Balance Sheet")
+			        # Multiselect widget to select columns for Balance Sheet
+			        selected_columns_bs = st.multiselect('Select columns for Balance Sheet:', df_bs.columns, key='1')
+			        # Filter the DataFrame based on selected columns
+			        if selected_columns_bs:
+			            filtered_df_bs = df_bs[selected_columns_bs]
+			        else:
+			            filtered_df_bs = df_bs  # If no columns are selected, display all
+			        st.dataframe(filtered_df_bs)
+			
+			    # For the Income Statement DataFrame
+			    with col2:
+			        st.header("Income Statement")
+			        # Multiselect widget to select columns for Income Statement
+			        selected_columns_is = st.multiselect('Select columns for Income Statement:', df_is.columns, key='2')
+			        # Filter the DataFrame based on selected columns
+			        if selected_columns_is:
+			            filtered_df_is = df_is[selected_columns_is]
+			        else:
+			            filtered_df_is = df_is  # If no columns are selected, display all
+			        st.dataframe(filtered_df_is)
+			
+			except Exception as e:
+			    st.error(f"An error occurred: {str(e)}")
+
 
 
 # Define other pages as functions
