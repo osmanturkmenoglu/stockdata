@@ -102,9 +102,6 @@ def page1():
 
 
 
-
-
-def page2():
     st.title('Historical Multiples')
     st.write('This app displays the historical multiples data.')
     # Set default values for inputs
