@@ -22,7 +22,7 @@ api = st.secrets["my_secrets"]["api_key"]
 # Create the client instance
 client = EodHistoricalData(API)
 
-  def page1():
+def page1():
     st.title('Financial Analysis')
     st.write('This app displays the fundamental financial data.')
 
@@ -104,9 +104,7 @@ client = EodHistoricalData(API)
 
 
 
-
-# Define other pages as functions
-  def page2():
+def page2():
     st.title('Historical Multiples')
     st.write('This app displays the historical multiples data.')
     # Set default values for inputs
