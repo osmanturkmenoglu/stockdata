@@ -484,9 +484,6 @@ def page2():
             # Call the charting function with your DataFrame
             chart_historical_ratios(datam)
 
-        except Exception as e:
-            st.error(f"An error occurred: {str(e)}")
-
 
 
 # Dictionary of pages
