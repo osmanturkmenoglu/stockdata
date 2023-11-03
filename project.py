@@ -94,8 +94,6 @@ def page1():
 
 
 
-
-
 # Define other pages as functions
 def page2():
     st.title('Historical Multiples')
