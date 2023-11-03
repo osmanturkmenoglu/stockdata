@@ -470,7 +470,22 @@ def page2():
             st.error(f"An error occurred: {str(e)}")
 
 
+ # Charting function
+            def chart_historical_ratios(ratios_df):
+                # Ask the user to select a ratio to chart
+                selected_ratio = st.selectbox('Select a ratio to chart:', ratios_df.columns)
 
+                # Create a line chart of the selected ratio
+                try:
+                    st.line_chart(ratios_df[selected_ratio])
+                except Exception as e:
+                    st.error(f"An error occurred while creating the chart: {str(e)}")
+
+            # Call the charting function with your DataFrame
+            chart_historical_ratios(datam)
+
+        except Exception as e:
+            st.error(f"An error occurred: {str(e)}")
 
 
 
