@@ -86,7 +86,9 @@ def page1():
                     st.dataframe(filtered_df_is)
             
             except Exception as e:
-                st.error(f"An error occurred: {str(e)}")
+                    st.error(f"An error occurred: {str(e)}")
+        except Exception as e:
+            st.error(f"An error occurred when fetching data: {str(e)}")
 
 
 def page2():
