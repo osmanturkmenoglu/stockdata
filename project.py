@@ -89,6 +89,13 @@ def page1():
                 st.error(f"An error occurred: {str(e)}")
 	
 
+
+
+
+
+
+
+
 # Define other pages as functions
 def page2():
     st.title('Historical Multiples')
