@@ -88,7 +88,24 @@ def page1():
             except Exception as e:
                 st.error(f"An error occurred: {str(e)}")
 
-    # Define other pages as functions
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Define other pages as functions
 def page2():
     st.title('Historical Multiples')
     st.write('This app displays the historical multiples data.')
