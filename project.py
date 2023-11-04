@@ -469,7 +469,7 @@ def page2():
         except Exception as e:
             st.error(f"An error occurred: {str(e)}")
 
-            st.write(ratios_df)
+            st.line_chart(ratios_df)
 
 
 
