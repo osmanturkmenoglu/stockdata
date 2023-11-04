@@ -482,7 +482,7 @@ def page2():
                     st.error(f"An error occurred while creating the chart: {str(e)}")
 
             # Call the charting function with your DataFrame
-            chart_historical_ratios(datam)
+            chart_historical_ratios(ratios_df)
 
 
 
