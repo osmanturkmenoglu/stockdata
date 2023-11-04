@@ -469,38 +469,8 @@ def page2():
         except Exception as e:
             st.error(f"An error occurred: {str(e)}")
 
-            # Charting function
-            def chart_historical_ratios(ratios_df):
-                # Check if the DataFrame is empty
-                if ratios_df.empty:
-                    st.error("The DataFrame is empty and cannot be charted.")
-                    return
-            
-                # Check if DataFrame has numerical data
-                if not any(dtype.kind in 'biufc' for dtype in ratios_df.dtypes):
-                    st.error("The DataFrame does not contain any numerical data to plot.")
-                    return
-            
-                # Ask the user to select a ratio to chart
-                try:
-                    # Ensure we have a list of columns which are numeric for charting
-                    numeric_columns = ratios_df.select_dtypes(include=['number']).columns.tolist()
-                    if len(numeric_columns) == 0:
-                        st.error("No numeric columns available for plotting.")
-                        return
-                    
-                    selected_ratio = st.selectbox('Select a ratio to chart:', numeric_columns)
-                    
-                    # Create a line chart of the selected ratio
-                    st.line_chart(ratios_df[selected_ratio])
-                except Exception as e:
-                    st.error(f"An error occurred while creating the chart: {str(e)}")
-            
-            # Call the charting function with your DataFrame
-            if 'ratios_df' in locals() or 'ratios_df' in globals():
-                chart_historical_ratios(ratios_df)
-            else:
-                st.error("ratios_df is not defined.")
+            st.write(ratios_df)
+
 
 
 
